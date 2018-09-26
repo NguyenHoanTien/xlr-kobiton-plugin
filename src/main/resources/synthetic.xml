@@ -1,16 +1,34 @@
 <?xml version='1.0' encoding='UTF-8'?>
 
-<synthetic xsi:schemaLocation="http://www.xebialabs.com/deployit/synthetic synthetic.xsd" 
-  xmlns="http://www.xebialabs.com/deployit/synthetic" 
+<synthetic xsi:schemaLocation="http://www.xebialabs.com/deployit/synthetic synthetic.xsd" xmlns="http://www.xebialabs.com/deployit/synthetic"
   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
 
-  <type type="kobiton.Task" extends="xlrelease.PythonScript" virtual="true">
-    <property name="iconLocation" default="kobiton/kobiton-logo.png" hidden="true" />
-    <property name="taskColor" hidden="true" default="#ffffff" />
+  <!-- Global Configuration -->
+  <type type="kobiton.Server" extends="xlrelease.Configuration">
+    <property name="username" label="Kobiton Username" category="input" required="true" description="Your Kobiton Username" />
+    <property name="apiKey" label="Kobiton API Key" password="true" category="input" required="true" description="Your Kobiton API Key" />
+    <property name="url" label="Kobiton API URL" category="input" required="true" default="https://api.kobiton.com" description="Kobiton URL used to consume API"/>
 
-    <property name="kobitonServer" category="input" label="Server" referenced-type="kobiton.Server" kind="ci"/>
+    <property name="deviceOrientation" label="Default Orientation" category="input" kind="enum" required="false" default="Portrait" description="Default deviceOrientation value in your Desired Capabilites">
+      <enum-values>
+        <value>Portrait</value>
+        <value>Landscape</value>
+      </enum-values>
+    </property>
+    <property name="captureScreenshots" label="Default Capture Screenshots" category="input" kind="boolean" required="false" description="Default captureScreenshots value in your Desired Capabilites"/>
+
+    <property name="remoteServer" label="Remote server domain" category="input" default="http://localhost:4545" required="true" description="Your server domain for receiving requests." />
+  </type>
+
+  <type type="kobiton.Task" extends="xlrelease.PythonScript" virtual="true">
+    <property name="iconLocation" default="kobiton/small-logo.png" hidden="true" />
+    <property name="taskColor" hidden="true" default="#2378ff" />
+
+    <property name="kobitonServer" category="input" label="Server" referenced-type="kobiton.Server" kind="ci" />
   </type>
 
   <!-- Plugin interface code will append below -->
+
+  
 
 </synthetic>
