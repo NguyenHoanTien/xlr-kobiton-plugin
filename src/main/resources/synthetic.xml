@@ -43,6 +43,36 @@
     <property name="devices" label="Devices List" category="output" kind="map_string_string" description="List of available devices (Device Name, Platform Name, Device UDID and device group)."/>
   </type>
 
-  
+  <type type="kobiton.ExecuteScript" extends="kobiton.Task">
+    <!-- Devices -->
+    <property name="kobiDevices" label="Kobiton Devices List" category="input" kind="map_string_string" required="false" description="List of avaiable Kobiton devices" />
+    <property name="privateDevices" label="In-House Devices List" category="input" kind="list_of_string" required="false" description="List of In-House devices UDIDs" />
 
+    <!-- DesiredCaps -->
+    <property name="overrideDesiredCaps" label="Override Desired Caps" category="input" kind="boolean" required="false" description="Check if you want to override the Desired Capabilities in Global Configuration" />
+    <property name="deviceOrientation" label="Orientation" category="input" kind="enum" default="Portrait" required="false"
+      description="Value of deviceOrientation in your Desired Capabilites">
+      <enum-values>
+        <value>Portrait</value>
+        <value>Landscape</value>
+      </enum-values>
+    </property>
+    <property name="captureScreenshots" label="Capture Screenshots" category="input" kind="boolean" required="false" description="Value captureScreenshots in your Desired Capabilites" />
+
+    <property name="testType" label="App Type" default="App" category="input" kind="enum" required="true" description="Execute test on Applications or on Browsers">
+      <enum-values>
+        <value>App</value>
+        <value>Browser</value>
+      </enum-values>
+    </property>
+    <property name="appUrl" label="App URL/App ID" category="input" required="false" description="Your app's public URL or Kobiton App ID. Required if you chose to test on apps." />
+    <property name="browserName" label="Browser" category="input" required="false" description="Your device's browser. Required if you chose to test on browsers." />
+    <property name="browserVer" label="Browser Version" category="input" required="false" description="Your device's browser version. Required if you chose to test on browsers." />
+
+    <property name="groupId" label="Group ID" category="input" required="false" description="Your group ID." />
+    <property name="gitUrl" label="Git Repository" category="input" required="true" description="URL to your Git repository that contains automation test scripts. Go to http://localhost:4545 to verify your repository's accessibility." />
+    <property name="ssh" label="Git Repository SSH Key" category="input" required="false" password="true" description="SSH to access your private Git repository." />
+    <property name="passphrase" label="Passphrase" category="input" required="false" password="true" description="Git repository passphrase." />
+    <property name="config" label="Configuration Commands" category="input" required="true" size="large" description="Bash commands to execute automation test." />
+  </type>
 </synthetic>
