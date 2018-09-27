@@ -9,3 +9,4 @@ venv
 .project
 xlr-kobiton-plugin.iml
 .DS_Store
+lib/*
