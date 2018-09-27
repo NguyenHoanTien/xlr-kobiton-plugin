@@ -46,7 +46,7 @@
   <type type="kobiton.ExecuteScript" extends="kobiton.Task">
     <!-- Devices -->
     <property name="kobiDevices" label="Kobiton Devices List" category="input" kind="map_string_string" required="false" description="List of avaiable Kobiton devices" />
-    <property name="privateDevices" label="In-House Devices List" category="input" kind="list_of_string" required="false" description="List of your devices UDIDs" />
+    <property name="inputUdid" label="In-House Devices List" category="input" kind="list_of_string" required="false" description="List of your devices UDIDs" />
 
     <!-- DesiredCaps -->
     <property name="overrideDesiredCaps" label="Override Desired Caps" category="input" kind="boolean" required="false" description="Check if you want to override the Desired Capabilities in Global Configuration" />
@@ -59,7 +59,7 @@
     </property>
     <property name="captureScreenshots" label="Capture Screenshots" category="input" kind="boolean" required="false" description="Value captureScreenshots in your Desired Capabilites" />
 
-    <property name="testType" label="App Type" default="App" category="input" kind="enum" required="true" description="Execute test on Applications or on Browsers">
+    <property name="testType" label="Test Type" default="App" category="input" kind="enum" required="true" description="Execute test on Applications or on Browsers">
       <enum-values>
         <value>App</value>
         <value>Browser</value>
@@ -79,6 +79,6 @@
     <property name="ssh" label="Git Repository SSH Key" category="input" required="false" password="true" description="SSH to access your private Git repository." />
     <property name="passphrase" label="Passphrase" category="input" required="false" password="true" description="Git repository passphrase." />
     <property name="config" label="Configuration Commands" category="input" required="true" size="large" description="Commands to execute automation test (yaml)." />
-    <property name="jobIds" label="Job IDs" category="output" kind="map_string_string" description="List of Job IDs on each devices" />
+    <property name="jobIds" label="Job IDs" category="output" kind="list_of_string" description="List of Job IDs on each devices" />
   </type>
 </synthetic>
