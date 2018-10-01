@@ -33,7 +33,7 @@
     <property name="results" label="Test results" category="output" kind="map_string_string" description="Theresults of your tests." />
   </type>
 
-  <type type="kobiton.ListDevices" extends="kobiton.Task">
+  <type type="kobiton.ListAvailableDevices" extends="kobiton.Task">
     <property name="isFavorite" label="Favorite Devices" category="input" kind="boolean" required="false" description="Select only favorite devices"/>    
     <property name="isPrivate" label="In-house Devices" category="input" kind="boolean" required="false" description="Select only private devices"/>
     <property name="isCloud" label="Cloud Devices" category="input" kind="boolean" required="false" description="Select only cloud devices"/>
@@ -76,9 +76,8 @@
 
     <property name="groupId" label="Group ID" category="input" required="false" description="Your group ID." />
     <property name="gitUrl" label="Git Repository" category="input" required="true" description="URL to your Git repository that contains automation test scripts. Go to http://localhost:4545 to verify your repository's accessibility." />
-    <property name="ssh" label="Git Repository SSH Key" category="input" required="false" password="true" description="SSH to access your private Git repository." />
-    <property name="passphrase" label="Passphrase" category="input" required="false" password="true" description="Git repository passphrase." />
+    <property name="ssh" label="Git Repository SSH Key" category="input" password="true" required="false" size="large" description="SSH to access your private Git repository." />
     <property name="config" label="Configuration Commands" category="input" required="true" size="large" description="Commands to execute automation test (yaml)." />
-    <property name="jobIds" label="Job IDs" category="output" kind="list_of_string" description="List of Job IDs on each devices" />
+    <property name="jobIds" label="Job IDs" category="output" kind="map_string_string" description="List of Job IDs on each devices" />
   </type>
 </synthetic>

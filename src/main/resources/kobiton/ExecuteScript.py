@@ -21,21 +21,22 @@ def merge_devices():
       'udid': udid
     })
 
-  for id in kobiDevices:
-    params = kobiDevices[id].split(' | ')
-    if id not in inputUdid:
-       mergedList.append({
-        'deviceName': params[0],
-        'platformName': params[1],
-        'platformVersion': params[2],
-        'udid': id
-      })
+  if not kobiDevices:
+    for id in kobiDevices:
+      params = kobiDevices[id].split(' | ')
+      if id not in inputUdid:
+        mergedList.append({
+          'deviceName': params[0],
+          'platformName': params[1],
+          'platformVersion': params[2],
+          'udid': id
+        })
 
   return mergedList
 
 
 def send_request(devicesList):
-  jobIds = []
+  jobIds = {}
   
   if devicesList == []:
     print 'No device to execute tests.'
@@ -43,8 +44,8 @@ def send_request(devicesList):
 
   headers = {
     'Content-type': 'application/json',
-    'Kobiton-Username': username,
-    'Kobiton-ApiKey': apiKey
+    'Username': username,
+    'ApiKey': apiKey
   }
 
   bodyTemplate = customizeBodyTemplate()
@@ -57,7 +58,12 @@ def send_request(devicesList):
       url = remoteServer + '/submit'
       request = urllib2.Request(url, json.dumps(body), headers=headers)
       response = urllib2.urlopen(request)
-      jobIds.append(response)
+      body = response.read()
+
+      # Display in output
+      # Showing usid of devices if user using private
+      jobIds[device['udid'] if not device['deviceName'] else device['deviceName']] = body
+
     except Exception as ex:
       errorDevice = device['deviceName'] if 'udid' not in device else device['udid']
       print "Error while executing test on {} : {}".format(errorDevice, ex)
@@ -71,11 +77,11 @@ def customizeBodyTemplate():
       'desiredCaps': {
           'deviceOrientation': deviceOrientation if overrideDesiredCaps else defaultDeviceOrientation,
           'captureScreenshots': captureScreenshots if overrideDesiredCaps else defaultCaptureScreenshots,
+          'groupId': groupId
       },
       'testScript': {
           'git': gitUrl,
           'ssh': ssh,
-          'passphrase': passphrase,
           'config': config
       }
     }
