@@ -1,0 +1,22 @@
+<?xml version='1.0' encoding='UTF-8'?>
+
+<synthetic xsi:schemaLocation="http://www.xebialabs.com/deployit/synthetic synthetic.xsd" 
+  xmlns="http://www.xebialabs.com/deployit/synthetic" 
+  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+
+  <type type="kobiton.Task" extends="xlrelease.PythonScript" virtual="true">
+    <property name="iconLocation" default="kobiton/kobiton-logo.png" hidden="true" />
+    <property name="taskColor" hidden="true" default="#ffffff" />
+
+    <property name="kobitonServer" category="input" label="Server" referenced-type="kobiton.Server" kind="ci"/>
+  </type>
+
+  <!-- Plugin interface code will append below -->
+
+  <type type="kobiton.InstallApplication" extends="kobiton.Task">
+    <property name="appPath" category="input" required="true" description="Path to your app file. Supported format: .apk, .ipa, .zip" />
+    <property name="appPackageName" category="input" required="false" description="Your application package name" />
+    <property name="kobitonAppId" category="output" kind="map_string_string" description="Kobiton application ID" />
+  </type>
+
+</synthetic>
