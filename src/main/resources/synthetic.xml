@@ -12,5 +12,9 @@
   </type>
 
   <!-- Plugin interface code will append below -->
-
+  <type type="kobiton.WaitForExecution" extends="kobiton.Task">
+    <property name="jobIds" label="Job IDs" category="input" kind="map_string_string" required="true" description="A list of your devices name and their execution job ID."/>
+    <property name="exitWhenFail" label="Terminate when failed" category="input" kind="boolean" required="false" description="Terminate the release if there's at least one failed result."/>    
+    <property name="results" label="Test results" category="output" kind="map_string_string" description="Theresults of your tests." />
+  </type>
 </synthetic>
