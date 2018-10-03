@@ -1,9 +1,11 @@
 import urllib2
 import json
 import time
+import sys
 
 results = {}
 listJobs = jobIds.keys()
+exitWhenCatchError = False
 
 def main():
   if len(listJobs) < 1:
@@ -16,13 +18,24 @@ def main():
 
   while len(listJobs) > 0:
     for id in listJobs:
-      url = kobitonServer['remoteServer'] + '/' + id + '/status'
-      request = urllib2.Request(url, headers=headers)
-      response = urllib2.urlopen(request)
-      data = json.loads(response.read())
-      
-      if data['status'] != 'IN-PROGRESS':
-        results[id] = str(data['message'])
+      try:
+        url = kobitonServer['remoteServer'] + '/' + str(id) + '/status' 
+        request = urllib2.Request(url, headers=headers)
+        response = urllib2.urlopen(request)
+        data = json.loads(response.read())
+        
+        if data['status'] != 'IN-PROGRESS':
+          if data['status'] == 'ERROR' and isExitWhenFail:
+            exitWhenCatchError = True
+          
+          results[id] = str(data['message'])
+
+      except Exception as ex:
+        print ex
+        results[id] = str(ex)
+        if isExitWhenFail:
+          exitWhenCatchError = True
+
 
     for key in results.keys():
       if key in listJobs:
@@ -30,6 +43,10 @@ def main():
         del listJobs[index]
     
     # Delay to avoid DDOS 
-    time.sleep(60)
+    time.sleep(30)
+
 
 main()
+
+if exitWhenCatchError:
+  sys.exit(1)

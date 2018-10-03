@@ -10,7 +10,6 @@ remoteServer = kobitonServer['remoteServer']
 defaultDeviceOrientation = kobitonServer['deviceOrientation']
 defaultCaptureScreenshots = kobitonServer['captureScreenshots']
 
-
 def merge_devices():
   mergedList = []
 
@@ -21,16 +20,21 @@ def merge_devices():
       'udid': udid
     })
 
-  if not kobiDevices:
+  if kobiDevices:
     for id in kobiDevices:
       params = kobiDevices[id].split(' | ')
       if id not in inputUdid:
-        mergedList.append({
-          'deviceName': params[0],
+        temp = {
+          'deviceName' : params[0],
           'platformName': params[1],
-          'platformVersion': params[2],
-          'udid': id
-        })
+          'platformVersion': params[2]
+        }
+
+        if params[3] == 'privateDevices':
+          temp['udid'] = id
+          temp['deviceGroup'] = 'any'
+
+        mergedList.append(temp)
 
   return mergedList
 
@@ -47,7 +51,7 @@ def send_request(devicesList):
     'Username': username,
     'ApiKey': apiKey
   }
-
+  
   bodyTemplate = customizeBodyTemplate()
 
   for device in devicesList:
@@ -59,16 +63,20 @@ def send_request(devicesList):
       request = urllib2.Request(url, json.dumps(body), headers=headers)
       response = urllib2.urlopen(request)
       body = response.read()
-
+      
       # Display in output
       # Showing usid of devices if user using private
-      jobIds[device['udid'] if not device['deviceName'] else device['deviceName']] = body
+      if device.has_key('udid'):
+        jobIds[body] = device['udid']
+      else:
+        jobIds[body] = device['deviceName']
 
     except Exception as ex:
       errorDevice = device['deviceName'] if 'udid' not in device else device['udid']
       print "Error while executing test on {} : {}".format(errorDevice, ex)
 
   return jobIds
+
 
 def customizeBodyTemplate():
   # Get customize input in field
@@ -88,19 +96,13 @@ def customizeBodyTemplate():
 
     if testType == 'App':
       bodyTemplate['desiredCaps']['app'] = appUrl
-
     elif testType == 'Browser':
-      if not browserVer or not browserName:
-        raise ValueError('Missing browser name or browser version')
-
       bodyTemplate['desiredCaps']['browserName'] = browserName.lower()
-      bodyTemplate['desiredCaps']['browserVer'] = browserVer
-
+      
   except Exception as ex:
     print "Error while executing test: " + ex 
 
   return bodyTemplate
-
 
 mergedList = merge_devices()
 jobIds = send_request(mergedList)

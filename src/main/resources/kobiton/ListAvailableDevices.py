@@ -93,12 +93,16 @@ def device_contains_name(device):
 
 
 def serialize_device(device):
-  device_data = str().join([device['deviceName'], ' | ', device['platformName'], ' | ', device['platformVersion']])
+  if device['isCloud']:
+    deviceGroup = 'cloudDevices'
+  else:
+    deviceGroup = 'privateDevices'
+
+  device_data = str().join([device['deviceName'], ' | ', device['platformName'], ' | ', device['platformVersion'], ' | ', deviceGroup])
   serialized_device = {
     device['udid']: str(device_data)
   }
 
   return serialized_device
-
 
 devices = get_devices_list()

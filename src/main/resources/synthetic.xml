@@ -27,12 +27,14 @@
     <property name="kobitonServer" category="input" label="Server" referenced-type="kobiton.Server" kind="ci" />
   </type>
 
-  <!-- Plugin interface code will append below -->
+  <!-- Wait for execution -->
   <type type="kobiton.WaitForExecution" extends="kobiton.Task">
     <property name="jobIds" label="Job IDs" category="input" kind="map_string_string" required="true" description="A list of your devices name and their execution job ID."/>
+    <property name="isExitWhenFail" label="Terminate when failed" category="input" kind="boolean" required="false" description="Terminate the release if there's at least one failed result."/>    
     <property name="results" label="Test results" category="output" kind="map_string_string" description="Theresults of your tests." />
   </type>
 
+  <!-- List available devices  -->
   <type type="kobiton.ListAvailableDevices" extends="kobiton.Task">
     <property name="isFavorite" label="Favorite Devices" category="input" kind="boolean" required="false" description="Select only favorite devices"/>    
     <property name="isPrivate" label="In-house Devices" category="input" kind="boolean" required="false" description="Select only private devices"/>
@@ -43,6 +45,8 @@
     <property name="devices" label="Devices List" category="output" kind="map_string_string" description="List of available devices (Device Name, Platform Name, Device UDID and device group)."/>
   </type>
 
+
+  <!-- Execute automation  -->
   <type type="kobiton.ExecuteScript" extends="kobiton.Task">
     <!-- Devices -->
     <property name="kobiDevices" label="Kobiton Devices List" category="input" kind="map_string_string" required="false" description="List of avaiable Kobiton devices" />
@@ -58,25 +62,23 @@
       </enum-values>
     </property>
     <property name="captureScreenshots" label="Capture Screenshots" category="input" kind="boolean" required="false" description="Value captureScreenshots in your Desired Capabilites" />
-
+    
     <property name="testType" label="Test Type" default="App" category="input" kind="enum" required="true" description="Execute test on Applications or on Browsers">
       <enum-values>
         <value>App</value>
         <value>Browser</value>
       </enum-values>
     </property>
-    <property name="appUrl" label="App URL/App ID" category="input" required="false" description="Your app's public URL or Kobiton App ID. Required if you chose to test on apps." />
     <property name="browserName" label="Browser" category="input" kind="enum" default="Chrome" required="false" description="Your device's browser. Required if you chose to test on browsers.">
       <enum-values>
         <value>Safari</value>
         <value>Chrome</value>
       </enum-values>
     </property>
-    <property name="browserVer" label="Browser Version" category="input" required="false" description="Your device's browser version. Required if you chose to test on browsers." />
-
-    <property name="groupId" label="Group ID" category="input" required="false" description="Your group ID." />
+    <property name="appUrl" label="App URL/App ID" category="input" required="false" description="Your app's public URL or Kobiton App ID. Required if you chose to test on apps." />
+    <property name="groupId" label="Group ID" category="input" required="true" description="Your group ID." />
     <property name="gitUrl" label="Git Repository" category="input" required="true" description="URL to your Git repository that contains automation test scripts. Go to http://localhost:4545 to verify your repository's accessibility." />
-    <property name="ssh" label="Git Repository SSH Key" category="input" password="true" required="false" size="large" description="SSH to access your private Git repository." />
+    <property name="ssh" label="Git Repository SSH Key" category="input" required="false" size="large" description="SSH to access your private Git repository." />
     <property name="config" label="Configuration Commands" category="input" required="true" size="large" description="Commands to execute automation test (yaml)." />
     <property name="jobIds" label="Job IDs" category="output" kind="map_string_string" description="List of Job IDs on each devices" />
   </type>
