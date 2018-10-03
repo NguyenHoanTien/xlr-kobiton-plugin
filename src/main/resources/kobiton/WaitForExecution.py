@@ -3,6 +3,8 @@ import json
 import time
 import sys
 
+remoteServer = kobitonServer['remoteServer']
+
 results = {}
 listJobs = jobIds.keys()
 exitWhenCatchError = False
@@ -19,7 +21,7 @@ def main():
   while len(listJobs) > 0:
     for id in listJobs:
       try:
-        url = kobitonServer['remoteServer'] + '/' + str(id) + '/status' 
+        url = remoteServer + '/' + id + '/status'
         request = urllib2.Request(url, headers=headers)
         response = urllib2.urlopen(request)
         data = json.loads(response.read())
