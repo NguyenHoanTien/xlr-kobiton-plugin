@@ -17,7 +17,8 @@ def merge_devices():
   # by udid on private devices.
   for udid in inputUdid:
     mergedList.append({
-      'udid': udid
+      'udid': udid,
+      'deviceGroup' : 'any'
     })
 
   if kobiDevices:

@@ -4,12 +4,12 @@ import time
 import sys
 
 remoteServer = kobitonServer['remoteServer']
-
 results = {}
 listJobs = jobIds.keys()
-exitWhenCatchError = False
 
 def main():
+  exitWhenCatchError = False
+  
   if len(listJobs) < 1:
     print 'No Jobs for waiting.'
     return
@@ -25,7 +25,7 @@ def main():
         request = urllib2.Request(url, headers=headers)
         response = urllib2.urlopen(request)
         data = json.loads(response.read())
-        
+
         if data['status'] != 'IN-PROGRESS':
           if data['status'] == 'ERROR' and isExitWhenFail:
             exitWhenCatchError = True
@@ -45,10 +45,10 @@ def main():
         del listJobs[index]
     
     # Delay to avoid DDOS 
-    time.sleep(30)
+    if len(listJobs) > 0:
+      time.sleep(30)
 
+  if exitWhenCatchError:
+    sys.exit(1)
 
 main()
-
-if exitWhenCatchError:
-  sys.exit(1)
