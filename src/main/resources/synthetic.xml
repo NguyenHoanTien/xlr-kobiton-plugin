@@ -31,6 +31,7 @@
   <type type="kobiton.WaitForExecution" extends="kobiton.Task">
     <property name="jobIds" label="Job IDs" category="input" kind="map_string_string" required="true" description="A list of your devices name and their execution job ID."/>
     <property name="isExitWhenFail" label="Terminate when failed" category="input" kind="boolean" required="false" description="Terminate the release if there's at least one failed result."/>    
+    
     <property name="results" label="Test results" category="output" kind="map_string_string" description="Theresults of your tests." />
   </type>
 
@@ -42,9 +43,9 @@
     <property name="model" label="Device Name(s)" category="input" required="false" description="(Optional) Filter by devices' name, seperated by comma. Ex: iPhone,Galaxy "/>
     <property name="isAndroid" label="Android Devices" category="input" kind="boolean" required="false" description="Select Android devices"/>
     <property name="isiOs" label="iOS Devices" category="input" kind="boolean" required="false" description="Selcet iOS devices"/>    
+    
     <property name="devices" label="Devices List" category="output" kind="map_string_string" description="List of available devices (Device Name, Platform Name, Device UDID and device group)."/>
   </type>
-
 
   <!-- Execute automation  -->
   <type type="kobiton.ExecuteScript" extends="kobiton.Task">
@@ -80,6 +81,7 @@
     <property name="gitUrl" label="Git Repository" category="input" required="true" description="URL to your Git repository that contains automation test scripts. Go to http://localhost:4545 to verify your repository's accessibility." />
     <property name="ssh" label="Git Repository SSH Key" category="input" required="false" size="large" description="SSH to access your private Git repository." />
     <property name="config" label="Configuration Commands" category="input" required="true" size="large" description="Commands to execute automation test (yaml)." />
+    
     <property name="jobIds" label="Job IDs" category="output" kind="map_string_string" description="List of Job IDs on each devices" />
   </type>
 </synthetic>

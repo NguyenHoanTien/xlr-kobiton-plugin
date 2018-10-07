@@ -7,9 +7,15 @@ remoteServer = kobitonServer['remoteServer']
 results = {}
 listJobs = jobIds.keys()
 
+exitWhenCatchError = False
+
+def printError(id, status, log):
+  print status + ' - ' + id + '\n'
+  print '--------------------------' + '\n'
+  print log + '\n'
+  print '--------------------------' + '\n'
+
 def main():
-  exitWhenCatchError = False
-  
   if len(listJobs) < 1:
     print 'No Jobs for waiting.'
     return
@@ -27,17 +33,18 @@ def main():
         data = json.loads(response.read())
 
         if data['status'] != 'IN-PROGRESS':
-          if data['status'] == 'ERROR' and isExitWhenFail:
-            exitWhenCatchError = True
+          if data['status'] == 'ERROR':
+            if isExitWhenFail:
+              exitWhenCatchError = True 
+            printError(id, data['status'], data['message'])
           
-          results[id] = str(data['message'])
+          results[id] = str(data['status'])
 
       except Exception as ex:
-        print ex
-        results[id] = str(ex)
+        printError(id, 'ERROR', ex)
+        results[id] = 'ERROR'
         if isExitWhenFail:
           exitWhenCatchError = True
-
 
     for key in results.keys():
       if key in listJobs:
@@ -48,7 +55,7 @@ def main():
     if len(listJobs) > 0:
       time.sleep(30)
 
-  if exitWhenCatchError:
-    sys.exit(1)
-
 main()
+
+if exitWhenCatchError:
+  sys.exit(1)
