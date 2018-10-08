@@ -34,6 +34,9 @@ def get_devices_list():
 def get_all_devices():
   auth_token = create_basic_authentication_token()
   url = api_server + '/v1/devices'
+  if groupId:
+    url += '?groupId=' + groupId
+    
   header = {
     "Content-Type": "application/json",
     "Authorization": auth_token
