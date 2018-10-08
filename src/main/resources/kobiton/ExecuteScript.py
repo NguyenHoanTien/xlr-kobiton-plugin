@@ -13,7 +13,7 @@ defaultCaptureScreenshots = kobitonServer['captureScreenshots']
 def merge_devices():
   mergedList = []
 
-  # Since Kobiton just allow execute automation test
+  # Kobiton only allows execute automation test
   # by udid on private devices.
   for udid in inputUdid:
     mergedList.append({
