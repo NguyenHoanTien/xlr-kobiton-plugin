@@ -3,7 +3,6 @@ import re
 import urllib2
 import copy
 
-# Since the global variable wizard has already checked status of the url, we don't need to perform url checking again.
 api_server = kobitonServer['url']
 username = kobitonServer['username']
 api_key = kobitonServer['apiKey']
@@ -36,6 +35,10 @@ def get_devices_list():
 def get_all_devices():
   auth_token = create_basic_authentication_token()
   url = api_server + '/v1/devices'
+  
+  if groupId:
+    url += '?groupId=' + groupId
+    
   header = {
     "Content-Type": "application/json",
     "Authorization": auth_token

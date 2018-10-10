@@ -42,6 +42,7 @@
     <property name="model" label="Device Name(s)" category="input" required="false" description="(Optional) Filter by devices' name, seperated by comma. Ex: iPhone,Galaxy "/>
     <property name="isAndroid" label="Android Devices" category="input" kind="boolean" required="false" description="Select Android devices"/>
     <property name="isiOs" label="iOS Devices" category="input" kind="boolean" required="false" description="Selcet iOS devices"/>    
+    <property name="groupId" label="Group ID" category="input" required="false" description="Your group ID."/> 
     <property name="devices" label="Devices List" category="output" kind="map_string_string" description="List of available devices (Device Name, Platform Name, Device UDID and device group)."/>
   </type>
 
