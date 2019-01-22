@@ -1,27 +1,24 @@
 # The Kobiton plugin for XebiaLabs XL Release product
 
-This XL release Kobiton plugin allows XL Release to interact with [Kobiton](https://portal.kobiton.com) such as getting devices list, executing automation test, collecting execution result.
+This XL release Kobiton plugin allows XL Release to interact with [Kobiton](https://portal.kobiton.com). We now support these feature tasks in order to execute automated test:
+* Get list of online devices and ready to run test.
+* Execute test on devices with prepared test script.
+* Collect report from test execution.
 
 # Table of content
-* [Feature task](#feature-task)
-* [Set up with Kobiton Server](#Set-up-with-Kobiton-server)
-    * [A. Preparation](#A.-Preparation)
-        * [1. Getting Kobiton Username and API key ](#1.-Getting-Kobiton-Username-and-API-key)
-        * [2. Getting SSH key for private repository](#2.-Getting-SSH-key-for-private-repository)
-    * [B. Configuration](#B.-Configuration)
-* [Set up release/phrase for Kobiton](#Set-up-release/phrase-for-Kobiton)
-    * [A. General](#A.-General)
-    * [B. Task](#B.-Task)
-        * [1. List Available Devices](#1.-List-Available-Devices)
-        * [2. Request Execute Test](#2.-Request-Execute-Test)
-        * [3. Wait for Execution](#3.-Wait-for-Execution)
-* [Start release/phrase](#Start-release/phrase)
-* [Results from tasks](#Results-from-tasks)
-___
-## Feature task
-- List available devices
-- Request execute test
-- Wait for execute (Collect result from test)
+* [Set up with Kobiton Server](#Set-up-with-Kobiton-server)<br>
+    * [A. Preparation](#A-Preparation)<br>
+        * [1. Getting Kobiton Username and API key](#1-Getting-Kobiton-Username-and-API-key)<br>
+        * [2. Getting SSH key for private repository](#2-Getting-SSH-key-for-private-repository)<br>
+    * [B. Configuration](#B-Configuration)<br>
+* [Set up release/phrase for Kobiton](#Set-up-releasephrase-for-Kobiton)<br>
+    * [A. General](#A.-General)<br>
+    * [B. Task](#B.-Task)<br>
+        * [1. List Available Devices](#1-List-Available-Devices)<br>
+        * [2. Request Execute Test](#2-Request-Execute-Test)<br>
+        * [3. Wait for Execution](#3-Wait-for-Execution)<br>
+* [Start release/phrase](#Start-releasephrase)<br>
+* [Results from tasks](#Results-from-tasks)<br>
 ___
 ## Set up with Kobiton server
 ### A. Preparation
@@ -46,6 +43,7 @@ ___
 <img src="./readme/step2.png" alt="step2" width="600">
 
 2. These are some information you need to fill in
+
     |Section|Description|
     | -----------------| --------------- |
     | Title            | Enter the name of your Kobiton Server |
@@ -132,6 +130,7 @@ This is the task used for Automated test execution.
     |Result|<img src="./readme/task2param1c.png" alt="task2param1c" width="400">|
 
 * Input properties
+
     | Field | Required | Type | Description |
     | ----- | -------- | ---- |----------- |
     |In-house devices udid|No|String|The udid of your private host devices on Kobiton Desktop. Visit our [document](https://docs.kobiton.com/device-lab-management/kobiton-desktop-app/getting-started-desktop-app/) for more detail about self host devices. |
@@ -166,6 +165,7 @@ This task will collect the result from task 2 to let you know the automated test
 <img src="./readme/waitforexecute.png" alt="waitforexecute" width="600">
 
 * Input properties
+
     | Field | Required | Type | Description |
     | ----- | -------- | ---- |----------- |
     |Job IDs |Yes|Sting| Input the output variable of task 2|
