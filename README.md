@@ -1,7 +1,7 @@
 # The Kobiton plugin for XebiaLabs XL Release product
 
 This XL release Kobiton plugin allows XL Release to interact with [Kobiton](https://portal.kobiton.com). We now support these feature tasks in order to execute automated test:
-* Get list of online devices and ready to run test.
+* Get list of online devices which are ready to run test.
 * Execute test on devices with prepared test script.
 * Collect report from test execution.
 
@@ -12,8 +12,8 @@ This XL release Kobiton plugin allows XL Release to interact with [Kobiton](http
         * [2. Getting SSH key for private repository](#2-Getting-SSH-key-for-private-repository)<br>
     * [B. Configuration](#B-Configuration)<br>
 * [Set up release/phrase for Kobiton](#Set-up-releasephrase-for-Kobiton)<br>
-    * [A. General](#A.-General)<br>
-    * [B. Task](#B.-Task)<br>
+    * [A. General](#A-General)<br>
+    * [B. Task](#B-Task)<br>
         * [1. List Available Devices](#1-List-Available-Devices)<br>
         * [2. Request Execute Test](#2-Request-Execute-Test)<br>
         * [3. Wait for Execution](#3-Wait-for-Execution)<br>
